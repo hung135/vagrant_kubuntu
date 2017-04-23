@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "kurron/xenial-x64-kubuntu-desktop"
+  config.vm.box = "boxcutter/ubuntu1604-desktop"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -26,7 +26,7 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
+   config.vm.network "private_network", ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -65,7 +65,14 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
-     apt-get update
-     apt-get install -y awscli git 
+	apt-get update
+	apt-get install -y awscli git wget
+	wget https://download.sublimetext.com/sublime-text_build-3126_amd64.deb
+	sudo dpkg install sublime-text_build-3126.deb
+	sudo apt-get install libxss1 libappindicator1 libindicator7 -y
+	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	sudo dpkg -i google-chrome*.deb
+	wget https://s-media-cache-ak0.pinimg.com/originals/5e/d8/b0/5ed8b052d77850bfefd87950a95133b0.jpg
+	# gsettings set org.gnome.desktop.background picture-uri ./5ed8b052d77850bfefd87950a95133b0.jpg
    SHELL
 end
