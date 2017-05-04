@@ -47,9 +47,9 @@ Vagrant.configure("2") do |config|
    config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
      vb.gui = true
-  #
+ 	vb.cpus = 4 
   #   # Customize the amount of memory on the VM:
-     vb.memory = "6144"
+     vb.memory = "8144"
    end
   #
   # View the documentation for the provider you are using for more
@@ -67,7 +67,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
 	apt-get update
-	apt-get install -y awscli git wget fish
+	apt-get install -y awscli git wget fish juju lxd zfsutils-linux
 	wget https://download.sublimetext.com/sublime-text_build-3126_amd64.deb
 	sudo dpkg -i sublime-text*.deb
 	sudo apt-get install libxss1 libappindicator1 libindicator7 -y
