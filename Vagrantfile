@@ -49,7 +49,9 @@ Vagrant.configure("2") do |config|
      vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-     vb.memory = "6144"
+     	vb.memory = "4028"
+	vb.cpus = 2
+	vb.customize ["modifyvm", :id, "--vram", "256"]
    end
   #
   # View the documentation for the provider you are using for more
@@ -67,13 +69,22 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
 	apt-get update
-	apt-get install -y awscli git wget fish
+	apt-get install -y awscli git wget fish vim
+	apt-get install alien dpkg-dev debhelper build-essential
 	wget https://download.sublimetext.com/sublime-text_build-3126_amd64.deb
 	sudo dpkg -i sublime-text*.deb
 	sudo apt-get install libxss1 libappindicator1 libindicator7 -y
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	# wget https://downloads.citrix.com/12939/icaclient_13.5.0.10185126_amd64.deb?__gda__=1493059163_da57c5d4a30cd783730021da68a3f9ea -O citrix.deb
+#	wget https://downloads.citrix.com/12939/icaclientWeb_13.5.0.10185126_amd64.deb?__gda__=1493065331_3812faf1415ad9b412d9a687d9e362fb -O citrix.deb
+	# used to remove sudo dpkg -P icaclient
+#	sudo ln -s /usr/share/ca-certificates/mozilla/* /opt/Citrix/ICAClient/keystore/cacerts/
+#	sudo ctx_rehash /opt/Citrix/ICAClient/keystore/cacerts/
 	sudo dpkg -i google-chrome*.deb
+	sudo dpkg -i citrix.deb
 	sudo apt-get install -f -y
+
+	sudo dpkg -i citrix.deb
 	sudo dpkg -i google-chrome*.deb
 	wget https://s-media-cache-ak0.pinimg.com/originals/5e/d8/b0/5ed8b052d77850bfefd87950a95133b0.jpg
 	# gsettings set org.gnome.desktop.background picture-uri ./5ed8b052d77850bfefd87950a95133b0.jpg
